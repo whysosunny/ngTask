@@ -22,6 +22,7 @@ var MainController = function($scope) {
             resetIndices($scope.tasks);
             $scope.updateCounter();
         }
+
     };
     
     $scope.deleteTask =function(index) {
@@ -39,20 +40,15 @@ var MainController = function($scope) {
     
     $scope.doneTask = function(index) {
         $('#' +index +' .task-content').toggleClass("note-done");
-        var imgSrc = $('#' +index +' .status-button');
-        if(imgSrc.attr("src") === "images/task-not-done.png") {
-            // $scope.count -=1;
+        if($scope.tasks[index].status === false) {
             doneCounter +=1;
             $scope.updateCounter();
             console.log(doneCounter);
-            imgSrc.attr("src", "images/task-done.png");
             $scope.tasks[index].status = true;
         } else {
-            // $scope.count +=1;
             doneCounter -=1;
             $scope.updateCounter();
             console.log(doneCounter);
-            imgSrc.attr("src", "images/task-not-done.png");
             $scope.tasks[index].status = false;
         }
     };
@@ -62,12 +58,18 @@ var MainController = function($scope) {
     };
 
     $scope.showAll = function() {
-
+        $scope.changeView =""
+        
     };
 
     $scope.showActive = function() {
+        $scope.changeView = false;
     };
-    
+
+    $scope.showCompleted = function() {
+        $scope.changeView = true;
+    };
+
 
 
     $scope.tasks = [];
