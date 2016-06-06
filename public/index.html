@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ngTask">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-Task</title>
+    <link href="libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body ng-controller="MainController">
+
+
+        <h1 class="site-title">ng-Task</h1>
+        <section id="app-container">
+            <section class="task-input-box">
+                <input id="task-input" placeholder="Enter your task"  ng-model="taskInput">
+                <a id="add-button" ng-click="addTask(taskInput)">Add</a>
+            </section>
+
+
+            <section class="tasks-block">
+                <div class="note-block" ng-repeat="task in tasks | orderBy: '-index'">
+                    <div id="{{task.index}}" class="note">
+                        <a href="#" ng-click="doneTask(task.index)"><img class="task-status status-button" src="images/task-not-done.png"></a>
+                        <span class="task-content">
+                            {{task.content}}
+                        </span>
+                        <a href="#" ng-click="deleteTask(task.index)"><img class="task-delete" src="images/delete.png"></a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="filter-block">
+                <span class="task-count" ng-show="tasks.length">
+                    {{currentCount}}
+                    <span ng-hide="tasks.length>1">Task</span>
+                    <span ng-show="tasks.length>1">Tasks</span>
+                    Left
+                </span>
+                <span class="task-count" ng-hide="tasks.length">No Tasks Left</span>
+                <a href="#" ng-click="showAll()" class="show-buttons">All</a>
+                <a href="#" ng-click="showActive()" class="show-buttons">Active</a>
+                <a href="#" ng-click="showCompleted()" class="show-buttons">Completed</a>
+            </section>
+
+
+
+        </section>
+        <!--<div class="input-box">-->
+
+            <!--&lt;!&ndash;<a class="add-button btn btn-default" ng-click="addTask(taskInput)">Add</a>&ndash;&gt;-->
+        <!--</div>-->
+
+
+
+
+
+
+
+    <script src="libs/jquery/dist/jquery.js"></script>
+    <script src="libs/angular/angular.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

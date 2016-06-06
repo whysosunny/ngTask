@@ -1,0 +1,22 @@
+{
+  "name": "ng-task",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "whysosunny <sunny.bwaj@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "angular": "^1.5.6"
+  }
+}
