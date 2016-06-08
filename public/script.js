@@ -7,9 +7,21 @@ var MainController = function($scope) {
         }
     };
 
+    var calcRemaining = function() {
+        var arr = $scope.tasks;
+        $scope.totalDone = 0;
+        $scope.totalLeft = 0;
+        for(var i=0; i<arr.length; i++) {
+            if( arr[i].status === true) {
+                $scope.totalDone+=1;
+            } else if(arr[i].status === false) {
+                $scope.totalLeft +=1;
+            }
+        }
+    };
+
     $scope.addTask = function(task) {
         if(task !== "") {
-
             var note = {
                 content: task,
                 index: $scope.tasks.length,
@@ -22,6 +34,8 @@ var MainController = function($scope) {
             resetIndices($scope.tasks);
             $scope.updateCounter();
         }
+        calcRemaining();
+
     };
     
     $scope.deleteTask =function(index) {
@@ -35,26 +49,23 @@ var MainController = function($scope) {
         }
         console.log($scope.currentCount);
         resetIndices($scope.tasks);
+        calcRemaining();
     };
     
     $scope.doneTask = function(index) {
-        $('#' +index +' .task-content').toggleClass("note-done");
-        var imgSrc = $('#' +index +' .status-button');
-        if(imgSrc.attr("src") === "images/task-not-done.png") {
-            // $scope.count -=1;
-            doneCounter +=1;
-            $scope.updateCounter();
-            console.log(doneCounter);
-            imgSrc.attr("src", "images/task-done.png");
-            $scope.tasks[index].status = true;
-        } else {
-            // $scope.count +=1;
-            doneCounter -=1;
-            $scope.updateCounter();
-            console.log(doneCounter);
-            imgSrc.attr("src", "images/task-not-done.png");
-            $scope.tasks[index].status = false;
-        }
+
+            if($scope.tasks[index].status === false) {
+                doneCounter +=1;
+                $scope.updateCounter();
+                console.log(doneCounter);
+                $scope.tasks[index].status = true;
+            } else {
+                doneCounter -=1;
+                $scope.updateCounter();
+                console.log(doneCounter);
+                $scope.tasks[index].status = false;
+            }
+        calcRemaining();
     };
 
     $scope.updateCounter = function() {
@@ -62,23 +73,31 @@ var MainController = function($scope) {
     };
 
     $scope.showAll = function() {
-
+        $scope.changeView ="";
+        $scope.updateCounter();
     };
 
     $scope.showActive = function() {
+        $scope.changeView = false;
+        $scope.updateCounter();
+        calcRemaining();
+    };
+
+    $scope.showCompleted = function() {
+        $scope.changeView = true;
+        $scope.updateCounter();
+        calcRemaining();
     };
     
-
 
     $scope.tasks = [];
 
     $scope.count = $scope.tasks.length;
     $scope.currentCount =0;
     var doneCounter = 0;
-    $scope.updateCounter();
-    
-    
-    var viewState = "all";  
+    $scope.totalDone = 0;
+    $scope.totalLeft = 0;
+
 };
 
 

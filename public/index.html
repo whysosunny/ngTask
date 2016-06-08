@@ -5,8 +5,11 @@
     <title>ng-Task</title>
     <link href="libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
+    <script src="libs/jquery/dist/jquery.js"></script>
+    <script src="libs/angular/angular.js"></script>
+    <script src="script.js"></script>
 </head>
-<body ng-controller="MainController">
+<body ng-controller="MainController" ng-cloak>
 
 
         <h1 class="site-title">ng-Task</h1>
@@ -18,10 +21,16 @@
 
 
             <section class="tasks-block">
-                <div class="note-block" ng-repeat="task in tasks | orderBy: '-index'">
+                <div class="note-block" ng-repeat="task in tasks | orderBy: '-index' | filter:changeView">
                     <div id="{{task.index}}" class="note">
-                        <a href="#" ng-click="doneTask(task.index)"><img class="task-status status-button" src="images/task-not-done.png"></a>
-                        <span class="task-content">
+                        <a href="#" ng-click="doneTask(task.index)">
+                            <img class="task-status status-button" ng-hide="task.status" src="images/task-not-done.png">
+                            <img class="task-status status-button" ng-show="task.status" src="images/task-done.png">
+                        </a>
+                        <span ng-show="task.status" class="task-content note-done">
+                            {{task.content}}
+                        </span>
+                        <span ng-hide="task.status" class="task-content">
                             {{task.content}}
                         </span>
                         <a href="#" ng-click="deleteTask(task.index)"><img class="task-delete" src="images/delete.png"></a>
@@ -32,14 +41,14 @@
             <section class="filter-block">
                 <span class="task-count" ng-show="tasks.length">
                     {{currentCount}}
-                    <span ng-hide="tasks.length>1">Task</span>
-                    <span ng-show="tasks.length>1">Tasks</span>
+                    <span ng-show="tasks.length===1 && currentCount !== 0">Task</span>
+                    <span ng-show="tasks.length>1 || currentCount === 0">Tasks</span>
                     Left
                 </span>
                 <span class="task-count" ng-hide="tasks.length">No Tasks Left</span>
-                <a href="#" ng-click="showAll()" class="show-buttons">All</a>
-                <a href="#" ng-click="showActive()" class="show-buttons">Active</a>
-                <a href="#" ng-click="showCompleted()" class="show-buttons">Completed</a>
+                <a href="#" ng-click="showAll()" class="show-buttons">All ({{tasks.length}})</a>
+                <a href="#" ng-click="showActive()" class="show-buttons">Active ({{totalLeft}})</a>
+                <a href="#" ng-click="showCompleted()" class="show-buttons">Completed ({{totalDone}})</a>
             </section>
 
 
@@ -56,8 +65,6 @@
 
 
 
-    <script src="libs/jquery/dist/jquery.js"></script>
-    <script src="libs/angular/angular.js"></script>
-    <script src="script.js"></script>
+
 </body>
 </html>

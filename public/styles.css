@@ -153,8 +153,8 @@ img.task-delete {
 
 .show-buttons {
     display: inline-block;
-    min-width: 119px;
-    padding: 20px;
+    min-width: 100px;
+    padding: 16px;
     text-align: center;
     border-right:2px solid #e4e4e4;
 }
@@ -167,3 +167,6 @@ img.task-delete {
     border-right: none;
 }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
