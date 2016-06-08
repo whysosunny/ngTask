@@ -37,7 +37,7 @@ var MainController = function($scope) {
         calcRemaining();
 
     };
-    
+
     $scope.deleteTask =function(index) {
         $scope.tasks.splice(index, 1);
         var currentItem = $('#' +index +' .task-content');
@@ -51,7 +51,7 @@ var MainController = function($scope) {
         resetIndices($scope.tasks);
         calcRemaining();
     };
-    
+
     $scope.doneTask = function(index) {
 
             if($scope.tasks[index].status === false) {

@@ -1,4 +1,4 @@
 # ngTask
 Simple notes application
 
-http://ng-task-list.herokuapp.com/
+https://ngtask.herokuapp.com/#
